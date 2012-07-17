@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+DELTA = 0.0001
+
 class point_2d:
     def __init__(self, x, y):
         self.x = float(x)
@@ -20,6 +22,15 @@ class line_2d_homo:
 
     def to_str(self):
         return '%f x + %f y + %f = 0 ' % (self.a, self.b, self.c)
+
+    def on_the_line(self, p_2dh, d = DELTA):
+        inner_product = p_2dh.x * self.a + p_2dh.y * self.b + p_2dh.w * self.c
+        if abs(inner_product) < d:
+            return True
+        else:
+            return False
+
+
 
 
 def make_line_2d_homo(p0, p1):
