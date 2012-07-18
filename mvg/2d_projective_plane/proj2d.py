@@ -30,13 +30,10 @@ class line_2d_homo:
         else:
             return False
 
-
-
-
 def make_line_2d_homo(p0, p1):
     '''2点 p0, p1 から同次表現の直線を作る'''
     if p0 == p1:
-        raise VauleError('P0 と P1 が同じ座標です')
+        raise ValueError('P0 と P1 が同じ座標です')
 
     if p0.x == p1.x:
         c = -p0.x
