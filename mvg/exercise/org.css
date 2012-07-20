@@ -1,0 +1,65 @@
+h1, h2, h3, h4 { 
+  border-style: none none none solid;
+  border-color: #336699; 
+  font-weight: bold;
+}
+
+h1 {
+  border-style: none none none solid;
+  background-color: lightblue;
+  border-left-width: 20px;
+  padding: 0.6ex 0.6ex 0.6ex 0.6ex;
+}
+
+h2 { 
+  border-style: none none none solid;
+  background-color: lightblue;
+  border-left-width: 15px;
+  padding: 0.4ex 0.4ex 0.4ex 0.6ex;
+}
+
+h3 { 
+  border-style: none none solid solid;
+  background-color: white;
+  border-left-width: 10px;
+  padding: 0.2ex 0.2ex 0.2ex 0.6ex;
+}
+
+h4 { 
+  border-style: none none solid solid;
+  background-color: white;
+  border-left-width: 9px;
+  padding: 0.2ex 0.2ex 0.2ex 0.6ex;
+}
+
+
+a:link:hover, a:visited:hover {
+  color: darkred;
+  background-color: yellow;
+}
+
+body {
+  background-color: white;
+  color: black;
+}
+
+code, tt {
+  font-family: monospace;
+  font-weight: bold;
+  font-style: normal;
+}
+
+pre {
+  background-color: gainsboro;
+  font-family: monospace;
+  font-weight: bold;
+  font-style: normal;
+  white-space: pre;
+  margin-left: 40pt;
+  margin-right: 40pt;
+  padding: 10pt;
+}
+
+pre.src {
+  background-color: #eeeeee;
+}
