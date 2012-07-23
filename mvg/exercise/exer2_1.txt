@@ -1,0 +1,7 @@
+Title=exercise2.1
+output=img/exer2.1.png
+[data]
+5,3,a
+11,5,b
+3,3,c
+5,5,d

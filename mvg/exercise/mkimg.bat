@@ -1,0 +1,1 @@
+python ..\tools\scatter.py exer2_1.txt
