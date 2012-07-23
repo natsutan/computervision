@@ -16,6 +16,11 @@ def scatter_plot(x,y):
     axvline(linewidth=1, color='b')
     axhline(y=0)
     axhline(linewidth=1, color='b')
+    xlabel("x")
+    ylabel("y")
+
+    # テキスト
+    annotate('A', (5, 3), xytext=(5.0, 1), textcoords='offset points')
 
     show()
 
@@ -27,6 +32,7 @@ def main():
 
     x = (5,11,3,5)
     y = (3,5,3,5)
+
 
     scatter_plot(x,y)
 
