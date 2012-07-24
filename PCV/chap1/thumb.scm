@@ -1,0 +1,5 @@
+(use cv)
+(let* ((src (cv-load-image "twittan2.jpg"))
+       (thumb (make-image 128 128 (ref src 'depth) (ref src 'n-channels))))
+  (cv-resize src thumb CV_INTER_LINEAR)
+  (cv-save-image "twittan2_thumb_gcv.jpg" thumb))
