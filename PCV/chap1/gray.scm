@@ -1,0 +1,5 @@
+(use cv)
+(let* ((src (cv-load-image "twittan.jpg"))
+       (gray (make-image (ref src 'width) (ref src 'height) IPL_DEPTH_8U 1)))
+    (cv-cvt-color src gray CV_BGR2GRAY)
+    (cv-save-image "twittan_gcv.jpg" gray))
