@@ -47,18 +47,23 @@ class plot_data():
     def ymin(self):
         return min(self.y)
 
-def plot_scatter(data):
-    title(data.title)
-    scatter(data.x, data.y)
-    xmax = data.xmax() <
+def set_axis(data):
+    """軸の設定"""
+    axis_margin = 2.0
 
-
+    # 軸の設定
+    xmax = data.xmax()
     xmin = data.xmin()
     ymax = data.ymax()
     ymin = data.ymin()
 
-    axis([-2.0,xmax+2.0,-2.0,ymax+2.0]) #新しい境界を設定
-    grid(True) # gridを入れる。
+    # 原点は常に表示する。
+    xmax = max((xmax, ymax, 0)) +  axis_margin
+    ymax = xmax
+    xmin = min((xmin, ymin, 0)) - axis_margin
+    ymin = xmin
+
+    axis([xmin, xmax, ymin, ymax]) #新しい境界を設定
 
     # 座標軸
     axvline(x=0)
@@ -67,6 +72,15 @@ def plot_scatter(data):
     axhline(linewidth=1, color='b')
     xlabel("x")
     ylabel("y")
+
+
+def plot_scatter(data):
+    title(data.title)
+    scatter(data.x, data.y)
+
+    set_axis(data)
+
+    grid(True) # gridを入れる。
 
     # テキスト
     annotate('A', (5, 3), xytext=(5.0, 1), textcoords='offset points')
