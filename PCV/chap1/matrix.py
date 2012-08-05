@@ -21,9 +21,6 @@ print(np.linalg.inv(a))
 print("A ・ B")
 print(np.dot(a, b))
 
-print("A × B")
-print(np.cross(a, b))
-
 print("det A")
 print(np.linalg.det(a))
 
@@ -35,3 +32,13 @@ print(a + 5)
 
 print("Aの5倍")
 print(a * 5)
+
+# 3次元ベクトルの内積・外積
+c = np.array([ 1.0, -2.0, 3.0],)
+d = np.array([ 4.0, -5.0, 6.0],)
+
+print("C・D")
+print(np.dot(c, d))
+
+print("C×D")
+print(np.cross(c, d))
