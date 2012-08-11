@@ -58,9 +58,6 @@
 (cv-mat-mul a b x)
 (print-2d-matrix x :name "A・B")
 
-;(cv-cross-product a b x)
-;(print-2d-matrix x :name "a×b")
-
 (format #t "det A = ~A~%" (cv-det a))
 
 (cv-transpose a x)
