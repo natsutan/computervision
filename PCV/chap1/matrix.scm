@@ -1,40 +1,6 @@
+;; Gauche-CVを使った行列演算
 (use cv)
-
-;; 行列の表示
-(define print-2d-matrix
-  (lambda (m . args)
-    (let-keywords args ((name ""))
-                  (unless (string=? name "")
-                    (format #t "~A = " name))
-                  (let ((rows (slot-ref m 'rows))
-                        (cols (slot-ref m 'cols)))
-                    (display "[")
-                    (dotimes (r rows)
-                             (display " [")
-                             (dotimes (c cols)
-                                      (format #t " ~A"  (cv-get-real2d m r c)))
-                             (display " ]"))
-                    (display "]\n")))))
-
-;; 行列とスカラー値の和  
-(define cv-mat-adds-2d
-  (lambda (src value dst)
-    (cv-mat-operate-2d src dst (lambda (x) (+ x value)))))
-
-;; 行列とスカラー値の和  
-(define cv-mat-muls-2d
-  (lambda (src value dst)
-    (cv-mat-operate-2d src dst (lambda (x) (* x value)))))
-
-;; 行列の各要素に演算を行う                                        
-(define cv-mat-operate-2d
-  (lambda (src dst op)
-    (let ((rows (slot-ref src 'rows))
-          (cols (slot-ref src 'cols)))
-      (dotimes (r rows)
-               (dotimes (c cols)
-                        (cv-set-real2d dst r c
-                                       (op (cv-get-real2d src r c))))))))
+(load "./cvutil.scm")
 
 (define a (make-cv-mat-from-uvector 3 3 1 #f64(1.0 -2.0 3.0 4.0 5.0 6.0 -7.0 8.0 -9.0)))
 (define b (make-cv-mat-from-uvector 3 3 1 #f64(10.0 -9.0 8.0 7.0 6.0 4.0 -3.0 2.0 -1.0)))

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 __author__ = 'Natsutani'
+# nupuを使った行列演算
 
 import numpy as np
 
