@@ -17,4 +17,5 @@ im2 = zeros(im.shape)
 for i in range(3):
     im2[:,:,i] = filters.gaussian_filter(im[:,:,i],5)
 
-imsave('twittan_g.jpg', im2.astype('uint8'))
+imsave('output/twi_gausssian_python.png', im2.astype('uint8'))
+
