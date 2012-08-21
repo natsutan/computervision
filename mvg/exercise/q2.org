@@ -5,53 +5,64 @@
 #+STYLE: <link rel="stylesheet" type="text/css" href="org.css">
 
 * 2.2 The 2D Projective plane
-** Q 2.2.1
+** 2.2 点と線
+*** Q
 2点 a = (5, 3) b = (11, 5)を通る直線lを、 Hemogeneous representation で表しなさい。
 点c = (2,2)と、点 d = (3,3)が、直線l上にあるかを判別しなさい。
 
-** Q 2.2.2
-    a = proj2d.point_2d(5, 3)
-    c = proj2d.point_2d(3, 3)
+*** A
+プログラム
+#+BEGIN_SRC lisp
+(use cv)
 
-    a = proj2d.point_2d(5, 3)
-    b = proj2d.point_2d(11, 5)
-    c = proj2d.point_2d(3, 3)
+(require "../proj2d/proj2d")
+(import proj2d)
+	  
+(define a (make-hm-point-2d 5 3))
+(define b (make-hm-point-2d 11 5))
+(define c (make-hm-point-2d 2 2))
+(define d (make-hm-point-2d 3 3))
 
-** Q 2.2.3
-    lv = proj2d.make_line_2d_homo(a,d)
-    print(lv.to_str())
+(define l (make-hm-line-2d-from-points a b))
 
-    print(lv.on_the_line(proj2d.make_point_2d_homo(a)))
-    print(lv.on_the_line(proj2d.make_point_2d_homo(b)))
-    print(lv.on_the_line(proj2d.make_point_2d_homo(c)))
-
-*** Q2,2,4 
-    a = proj2d.point_2d(5, 3)
-    b = proj2d.point_2d(11, 5)
-    c = proj2d.point_2d(3, 3)
-    d = proj2d.point_2d(5, 5)
-    l = proj2d.make_line_2d_homo(a,b)
-    print(l.to_str())
-
-    print(l.on_the_line(proj2d.make_point_2d_homo(a)))
-    print(l.on_the_line(proj2d.make_point_2d_homo(b)))
-    print(l.on_the_line(proj2d.make_point_2d_homo(c)))
+(format #t "c = ~A ~A~%" c (on-line? l c))
+(format #t "d = ~A ~A~%" d (on-line? l d))
+#+END_SRC
+結果
+#+BEGIN_SRC sh
+c = (2.0, 2.0) #t
+d = (3.0, 3.0) #f
+#+END_SRC
+点Cは直線上にあり、点Dは直線上にない
 
 
-    lh = proj2d.make_line_2d_homo(a,c)
-    print(lh.to_str())
-
-    print(lh.on_the_line(proj2d.make_point_2d_homo(a)))
-    print(lh.on_the_line(proj2d.make_point_2d_homo(b)))
-    print(lh.on_the_line(proj2d.make_point_2d_homo(c)))
-
-    lv = proj2d.make_line_2d_homo(a,d)
-    print(lv.to_str())
-
-    print(lv.on_the_line(proj2d.make_point_2d_homo(a)))
-    print(lv.on_the_line(proj2d.make_point_2d_homo(b)))
-    print(lv.on_the_line(proj2d.make_point_2d_homo(c)))
+** 2.3 線の交点
+*** Q
+点 a = (5, 3) b = (11, 5)を通る直線l0と、点 c = (2,5) d = (5,0)を通る直線l1の交点を求めなさい。
 
 
+*** A
+プログラム
+#+BEGIN_SRC lisp
+(use cv)
+
+(require "../proj2d/proj2d")
+(import proj2d)
+	  
+(define a (make-hm-point-2d 5 3))
+(define b (make-hm-point-2d 11 5))
+(define c (make-hm-point-2d 2 5))
+(define d (make-hm-point-2d 5 0))
+(define l0 (make-hm-line-2d-from-points a b))
+(define l1 (make-hm-line-2d-from-points c d))
+
+(define x (intersection-of-lines l0 l1))
+(format #t "~A~%" x)
+#+END_SRC
+結果
+#+BEGIN_SRC sh
+(3.5, 2.5)
+#+END_SRC
+答え、(x, y) = (3.5, 2.5)
 
 
