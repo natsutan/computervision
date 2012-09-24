@@ -18,6 +18,15 @@
         (cv-set-real2d m 0 1 y)
         (cv-set-real2d m 0 2 1.0)
         p)))
+
+  (define make-hm-point-2d-from-3value
+    (lambda (x y w)
+      (let* ((p (make <hm-point-2d>))
+             (m (mat p)))
+        (cv-set-real2d m 0 0 x)
+        (cv-set-real2d m 0 1 y)
+        (cv-set-real2d m 0 2 w)
+        p)))
   
   (define x-of
     (lambda (p)
@@ -98,10 +107,28 @@
         (set! (mat p) x)
         p)))
 
-        
+
+  ;; transform by projective matrix H
+  (define-method transform ((H <cv-mat>) (x <hm-point-2d>))
+    (let ((a00 (cv-get-real2d H 0 0))
+          (a01 (cv-get-real2d H 0 1))
+          (a02 (cv-get-real2d H 0 2))
+          (a10 (cv-get-real2d H 1 0))
+          (a11 (cv-get-real2d H 1 1))
+          (a12 (cv-get-real2d H 1 2))
+          (a20 (cv-get-real2d H 2 0))
+          (a21 (cv-get-real2d H 2 1))
+          (a22 (cv-get-real2d H 2 2)))
+      (let ((xdash (+ (* (x-of x) a00) (* (y-of x) a01) a02))
+            (ydash (+ (* (x-of x) a10) (* (y-of x) a11) a12))
+            (wdash (+ (* (x-of x) a20) (* (y-of x) a21) a22)))
+        (make-hm-point-2d-from-3value xdash ydash wdash))))
+
+  
   (export <hm-point-2d> x-of y-of make-hm-point-2d
           <hm-line-2d> a-of b-of c-of make-hm-line-2d-from-points
           on-line? intersection-of-lines
+          transform
           )
 )
 
