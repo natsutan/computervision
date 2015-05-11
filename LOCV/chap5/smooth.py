@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import numpy
 import cv2
 import myhdl_top
 
