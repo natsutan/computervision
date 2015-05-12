@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 __author__ = 'natu'
-from myhdl import Signal, delay, always, now, Simulation, instance
+from myhdl import Signal, delay, always, now, Simulation, instance, intbv, channel
+import smooth_hdl
 
+# paramter
+p_max_x = 1024
+p_max_y = 1024
 
 def run_sim():
 #    clk = Signal(0)     # 0は初期値
@@ -9,10 +13,38 @@ def run_sim():
 #    hello_inst = HelloWorld(clk)
 #    sim = Simulation(clkdriver_inst, hello_inst)
 
-    inst = greedings()
+    inst = env()
     sim = Simulation(inst)
 
     sim.run(50)
+
+
+def env():
+    # clk
+    clk = Signal(0)
+    uClkDriver = ClkDeriver(clk)
+
+    # input port
+    rin = Signal(intbv(0, min = 0, max = 255))
+    gin = Signal(intbv(0, min = 0, max = 255))
+    bin = Signal(intbv(0, min = 0, max = 255))
+    radr = Signal(intbv(0, min = 0, max = p_max_x * p_max_y))
+    inport_ch = channel(rin, gin, bin, radr)
+
+    # output port
+    rout = Signal(intbv(0, min = 0, max = 255))
+    gout = Signal(intbv(0, min = 0, max = 255))
+    bout = Signal(intbv(0, min = 0, max = 255))
+    wadr = Signal(intbv(0, min = 0, max = p_max_x * p_max_y))
+    wen  = Signal(intbv(0))
+    outport_ch = channel(rout, gout, bout, wadr, wen)
+
+    # registers
+    reg =
+
+
+    return uClkDriver
+
 
 
 def greedings():
@@ -22,7 +54,7 @@ def greedings():
     clkdriver1 = ClkDeriver(clk1)
     clkdriver2 = ClkDeriver(clk = clk2, period=19)
     hello1 = Hello(clk=clk1)
-    hello2 = Hello(to="MyHDL", clk = clk2)
+    hello2 = Hello(to="MyHDL", clk = clk2)ｓ
 
     return clkdriver1, clkdriver2, hello1, hello2
 
