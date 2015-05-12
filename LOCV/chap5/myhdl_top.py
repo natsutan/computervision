@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 __author__ = 'natu'
-from myhdl import Signal, delay, always, now, Simulation, instance, intbv
+from myhdl import Signal, delay, always, now, Simulation, instance, intbv, channel
 import smooth_hdl
 
 # paramter
@@ -25,10 +25,10 @@ def env():
     uClkDriver = ClkDeriver(clk)
 
     # input port
-    rin = Signal(intbv(0, min=0, max=255))
-    gin = Signal(intbv(0, min=0, max=255))
-    bin = Signal(intbv(0, min=0, max=255))
-    radr = Signal(intbv(0, min=0, max=p_max_x * p_max_y))
+    rin = Signal(intbv(0, min = 0, max = 255))
+    gin = Signal(intbv(0, min = 0, max = 255))
+    bin = Signal(intbv(0, min = 0, max = 255))
+    radr = Signal(intbv(0, min = 0, max = p_max_x * p_max_y))
     inport_ch = channel(rin, gin, bin, radr)
 
     # output port
@@ -40,14 +40,7 @@ def env():
     outport_ch = channel(rout, gout, bout, wadr, wen)
 
     # registers
-    reg_width  = Signal(intbv(0, min=0, max=p_max_x))
-    reg_height = Signal(intbv(0, min=0, max=p_max_y))
-    reg_roi_x  = Singal(intbv(0, min=0, max=p_max_x))
-    reg_roi_y  = Singal(intbv(0, min=0, max=p_max_y))
-    reg_roi_w  = Singal(intbv(0, min=0, max=p_max_x))
-    reg_roi_h  = Singal(intbv(0, min=0, max=p_max_y))
-
-    registers = channel(reg_width, reg_height, reg_roi_h, reg_roi_w, reg_roi_x, reg_roi_y)
+    reg =
 
 
     return uClkDriver
@@ -61,7 +54,7 @@ def greedings():
     clkdriver1 = ClkDeriver(clk1)
     clkdriver2 = ClkDeriver(clk = clk2, period=19)
     hello1 = Hello(clk=clk1)
-    hello2 = Hello(to="MyHDL", clk = clk2)
+    hello2 = Hello(to="MyHDL", clk = clk2)ｓ
 
     return clkdriver1, clkdriver2, hello1, hello2
 
