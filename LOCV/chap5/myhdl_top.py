@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 __author__ = 'natu'
-from myhdl import Signal, delay, always, now, Simulation, instance, intbv, traceSignals
+from myhdl import Signal, delay, always, now, Simulation, instance, intbv, traceSignals, ResetSignal
 from smooth_hdl import smoother_top
 
 # paramter
@@ -22,7 +22,8 @@ def env():
     # clk
     clk = Signal(bool(0))
     uClkDriver = ClkDriver(clk)
-    reset = Signal(bool(0))
+    reset = ResetSignal(0, active=True, async=True)
+
     uResetDriver = ResetDriver(clk, reset)
 
 
@@ -40,6 +41,10 @@ def env():
     wen  = Signal(intbv(bool(0)))
 
     # registers
+    reg_start = Signal(intbv(bool(0)))
+    reg_end = Signal(intbv(bool(0)))
+    reg_width = Signal(intbv(0, min=0, max=p_max_x))
+    reg_height = Signal(intbv(0, min=0, max=p_max_y))
     reg_roi_x = Signal(intbv(0, min=0, max=p_max_x))
     reg_roi_y = Signal(intbv(0, min=0, max=p_max_y))
     reg_rot_w = Signal(intbv(0, min=0, max=p_max_x))
@@ -49,14 +54,12 @@ def env():
         clk, reset,
         rin, gin, bin, radr,
         rout, gout, bout, wadr, wen,
+        reg_start, reg_end,
+        reg_width, reg_height,
         reg_roi_x, reg_roi_y, reg_rot_h, reg_rot_w
     )
 
-    return uClkDriver, uResetDriver
-
-
-
-    return uClkDriver
+    return uClkDriver, uResetDriver, uDut
 
 
 
