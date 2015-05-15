@@ -2,6 +2,7 @@
 __author__ = 'natu'
 from myhdl import Signal, delay, always, now, Simulation, instance, intbv, traceSignals, ResetSignal
 from smooth_hdl import smoother_top
+from reg_driver import reg_driver_top
 
 # paramter
 p_max_x = 1024
@@ -26,7 +27,6 @@ def env():
 
     uResetDriver = ResetDriver(clk, reset)
 
-
     # input port
     rin = Signal(intbv(0, min=0, max=255))
     gin = Signal(intbv(0, min=0, max=255))
@@ -50,6 +50,12 @@ def env():
     reg_rot_w = Signal(intbv(0, min=0, max=p_max_x))
     reg_rot_h = Signal(intbv(0, min=0, max=p_max_y))
 
+    uRegDriver = reg_driver_top(clk, reset,
+                                reg_start, reg_end,
+                                reg_width, reg_height,
+                                reg_roi_x, reg_roi_y, reg_rot_h, reg_rot_w
+                                )
+
     uDut = smoother_top(
         clk, reset,
         rin, gin, bin, radr,
@@ -59,7 +65,7 @@ def env():
         reg_roi_x, reg_roi_y, reg_rot_h, reg_rot_w
     )
 
-    return uClkDriver, uResetDriver, uDut
+    return uClkDriver, uResetDriver, uRegDriver,  uDut
 
 
 

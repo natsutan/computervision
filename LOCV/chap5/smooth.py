@@ -15,6 +15,8 @@ def run_opencv():
 
     dst[roi_y:roi_y + roi_h, roi_x:roi_x + roi_w] = cv2.blur(src[roi_y:roi_y + roi_h, roi_x:roi_x + roi_w], (5, 5),
                                                              (-1, -1))
+    print("image size:width = %d, height = %d" % (dst.shape[1], dst.shape[0]))
+
     cv2.imwrite('twi_blur_cv.jpg', dst)
 
 
