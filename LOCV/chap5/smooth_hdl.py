@@ -8,8 +8,8 @@ def smoother_top(
         clk, reset,
         rin, gin, bin, radr,
         rout, gout, bout, wadr, wen,
-        reg_width, reg_height,
         reg_start, reg_end,
+        reg_width, reg_height,
         reg_roi_x, reg_roi_y, reg_rot_h, reg_rot_w
     ):
 
