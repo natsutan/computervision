@@ -15,7 +15,23 @@ def smoother_top(
 
     state = Signal(t_State.IDLE)
 
+    @instance
+    def main_proc():
+        if state == t_State.RUNNING:
+            for y in range(reg_height):
+                for x in range(reg_width):
+                    radr.next = adr(x, y)
+                    yield clk.posedge
+                    rout.next = rin
+                    gout.next = gin
+                    bout.next = bin
+                    wen.next = 1
+                    yield  clk.posedge
+                    wen.next = 0
 
+
+    def adr(x, y):
+        return y * reg_width + x
 
     @always_seq(clk.posedge, reset=reset)
     def fsm():
@@ -29,5 +45,5 @@ def smoother_top(
             raise ValueError("Undefined state")
 
 
-    return fsm
+    return fsm, main_proc
 

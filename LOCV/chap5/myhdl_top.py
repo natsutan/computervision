@@ -3,7 +3,7 @@ __author__ = 'natu'
 from myhdl import Signal, delay, always, now, Simulation, instance, intbv, traceSignals, ResetSignal
 from smooth_hdl import smoother_top
 from reg_driver import reg_driver_top
-from mem import mem_top
+from mem import mem_top, write_image
 
 # paramter
 p_max_x = 1024
@@ -18,7 +18,7 @@ def run_sim():
     sim = Simulation(inst)
 
     sim.run(300)
-
+    write_image()
 
 def env():
     # clk
