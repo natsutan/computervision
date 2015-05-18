@@ -15,6 +15,8 @@ def smoother_top(
 
     state = Signal(t_State.IDLE)
 
+
+
     @always_seq(clk.posedge, reset=reset)
     def fsm():
         if state == t_State.IDLE:
