@@ -6,7 +6,7 @@ def reg_driver_top(
         clk, reset,
         reg_start, reg_end,
         reg_width, reg_height,
-        reg_roi_x, reg_roi_y, reg_rot_h, reg_rot_w
+        reg_roi_x, reg_roi_y, reg_roi_h, reg_roi_w
         ):
 
     @instance
@@ -20,9 +20,9 @@ def reg_driver_top(
         reg_height.next = 358
         reg_roi_x.next = 100
         reg_roi_y.next = 100
-        reg_rot_h.next = 200
-        reg_rot_h.next = 200
-        reg_rot_w.next = 150
+        reg_roi_h.next = 200
+        reg_roi_h.next = 200
+        reg_roi_w.next = 150
         yield clk.posedge
 
         reg_start.next = 1

@@ -10,14 +10,10 @@ p_max_x = 1024
 p_max_y = 1024
 
 def run_sim():
-#    clk = Signal(0)     # 0は初期値
-#    clkdriver_inst = ClkDeriver(clk)
-#    hello_inst = HelloWorld(clk)
-#    sim = Simulation(clkdriver_inst, hello_inst)
     inst = traceSignals(env)
     sim = Simulation(inst)
 
-    sim.run(300)
+    sim.run(10000000)
     write_image()
 
 def env():
@@ -29,33 +25,33 @@ def env():
     uResetDriver = ResetDriver(clk, reset)
 
     # input port
-    rin = Signal(intbv(0, min=0, max=255))
-    gin = Signal(intbv(0, min=0, max=255))
-    bin = Signal(intbv(0, min=0, max=255))
+    rin = Signal(intbv(0, min=0, max=256))
+    gin = Signal(intbv(0, min=0, max=256))
+    bin = Signal(intbv(0, min=0, max=256))
     radr = Signal(intbv(0, min=0, max=p_max_x * p_max_y))
 
     # output port
-    rout = Signal(intbv(0, min = 0, max = 255))
-    gout = Signal(intbv(0, min = 0, max = 255))
-    bout = Signal(intbv(0, min = 0, max = 255))
-    wadr = Signal(intbv(0, min = 0, max = p_max_x * p_max_y))
-    wen  = Signal(intbv(bool(0)))
+    rout = Signal(intbv(0, min=0, max=256))
+    gout = Signal(intbv(0, min=0, max=256))
+    bout = Signal(intbv(0, min=0, max=256))
+    wadr = Signal(intbv(0, min=0, max=p_max_x * p_max_y))
+    wen  = Signal(bool(0))
 
     # registers
-    reg_start = Signal(intbv(bool(0)))
-    reg_end = Signal(intbv(bool(0)))
+    reg_start = Signal(bool(0))
+    reg_end = Signal(bool(0))
     reg_width = Signal(intbv(0, min=0, max=p_max_x))
     reg_height = Signal(intbv(0, min=0, max=p_max_y))
     reg_roi_x = Signal(intbv(0, min=0, max=p_max_x))
     reg_roi_y = Signal(intbv(0, min=0, max=p_max_y))
-    reg_rot_w = Signal(intbv(0, min=0, max=p_max_x))
-    reg_rot_h = Signal(intbv(0, min=0, max=p_max_y))
+    reg_roi_w = Signal(intbv(0, min=0, max=p_max_x))
+    reg_roi_h = Signal(intbv(0, min=0, max=p_max_y))
 
     uRegDriver = reg_driver_top(
         clk, reset,
         reg_start, reg_end,
         reg_width, reg_height,
-        reg_roi_x, reg_roi_y, reg_rot_h, reg_rot_w
+        reg_roi_x, reg_roi_y, reg_roi_h, reg_roi_w
         )
 
     uMem = mem_top(
@@ -70,7 +66,7 @@ def env():
         rout, gout, bout, wadr, wen,
         reg_start, reg_end,
         reg_width, reg_height,
-        reg_roi_x, reg_roi_y, reg_rot_h, reg_rot_w
+        reg_roi_x, reg_roi_y, reg_roi_h, reg_roi_w
     )
 
     return uClkDriver, uResetDriver, uRegDriver, uMem, uDut
@@ -119,11 +115,9 @@ def ResetDriver(clk, reset):
         reset.next = 0
         yield clk.posedge
 
-
     return driveReset
 
 def Hello(clk, to="World!"):
-
 
     @always(clk.posedge)
     def sayHello():
