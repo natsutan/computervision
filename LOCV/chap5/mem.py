@@ -17,10 +17,10 @@ def mem_top(
 
     @always_comb
     def mem_read():
-        global read_r, read_g, read_b
-        read_r = src[radr][0]
-        read_g = src[radr][1]
-        read_b = src[radr][2]
+        #global read_r, read_g, read_b
+        read_r.next = src[0][radr][0]
+        read_g.next = src[0][radr][1]
+        read_b.next = src[0][radr][2]
 
 
  

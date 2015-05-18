@@ -17,17 +17,19 @@ def smoother_top(
 
     @instance
     def main_proc():
-        if state == t_State.RUNNING:
-            for y in range(reg_height):
-                for x in range(reg_width):
-                    radr.next = adr(x, y)
-                    yield clk.posedge
-                    rout.next = rin
-                    gout.next = gin
-                    bout.next = bin
-                    wen.next = 1
-                    yield  clk.posedge
-                    wen.next = 0
+        while True:
+            if state == t_State.RUNNING:
+                for y in range(reg_height):
+                    for x in range(reg_width):
+                        radr.next = adr(x, y)
+                        yield clk.posedge
+                        rout.next = rin
+                        gout.next = gin
+                        bout.next = bin
+                        wen.next = 1
+                        yield  clk.posedge
+                        wen.next = 0
+            yield  clk.posedge
 
 
     def adr(x, y):
