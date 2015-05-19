@@ -22,6 +22,7 @@ def mem_top(
         read_g.next = clop_8bit(src[y][x][1])
         read_b.next = clop_8bit(src[y][x][2])
 
+
     @instance
     def mem_write():
         while True:
@@ -30,7 +31,6 @@ def mem_top(
                 dst[y][x][0] = write_r
                 dst[y][x][1] = write_g
                 dst[y][x][2] = write_b
-                print("%d, %d rout = %d" % (y, x, write_r))
             yield clk.posedge
 
 

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 __author__ = 'natu'
-from myhdl import Signal, delay, always, now, Simulation, instance, intbv, traceSignals, ResetSignal
+from myhdl import Signal, delay, always, now, Simulation, instance, intbv, traceSignals, ResetSignal, toVerilog
 from smooth_hdl import smoother_top
 from reg_driver import reg_driver_top
 from mem import mem_top, write_image
@@ -10,10 +10,11 @@ p_max_x = 1024
 p_max_y = 1024
 
 def run_sim():
-    inst = traceSignals(env)
+#    inst = traceSignals(env)
+    inst = env()
     sim = Simulation(inst)
 
-    sim.run(10000000)
+    sim.run(40000000)
     write_image()
 
 def env():
@@ -61,6 +62,16 @@ def env():
     )
 
     uDut = smoother_top(
+        clk, reset,
+        rin, gin, bin, radr,
+        rout, gout, bout, wadr, wen,
+        reg_start, reg_end,
+        reg_width, reg_height,
+        reg_roi_x, reg_roi_y, reg_roi_h, reg_roi_w
+    )
+
+
+    toVerilog(smoother_top,
         clk, reset,
         rin, gin, bin, radr,
         rout, gout, bout, wadr, wen,

@@ -17,7 +17,7 @@ def smoother_top(
 
     @instance
     def main_proc():
-        while True:
+        while 1:
             if state == t_State.RUNNING:
                 for y in range(reg_height):
                     print("y = %d" % y)
@@ -30,21 +30,21 @@ def smoother_top(
                             for ry in range(-2,3):
                                 for rx in range(-2,3):
                                     radr.next = adr(x + rx, y + ry)
-                                    yield clk.posedge
+                                    yield  clk.posedge
                                     sum_r = sum_r + rin
                                     sum_g = sum_g + gin
                                     sum_b = sum_b + bin
-                                    yield clk.posedge
+                                    yield  clk.posedge
                             wadr.next = adr(x, y)
-                            rout.next = sum_r / 25
-                            gout.next = sum_g / 25
-                            bout.next = sum_b / 25
+                            rout.next = sum_r // 25
+                            gout.next = sum_g // 25
+                            bout.next = sum_b // 25
                             wen.next = 1
                             yield  clk.posedge
                             wen.next = 0
                         else:
                             radr.next = adr(x, y)
-                            yield clk.posedge
+                            yield  clk.posedge
                             wadr.next = adr(x, y)
                             rout.next = rin
                             gout.next = gin

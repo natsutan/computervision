@@ -16,11 +16,10 @@ def reg_driver_top(
         while reset == 1:
             yield clk.posedge
 
-        reg_width.next = 557
-        reg_height.next = 358
+        reg_width.next = 358
+        reg_height.next = 557
         reg_roi_x.next = 100
         reg_roi_y.next = 100
-        reg_roi_h.next = 200
         reg_roi_h.next = 200
         reg_roi_w.next = 150
         yield clk.posedge
